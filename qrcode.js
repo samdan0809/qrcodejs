@@ -382,7 +382,11 @@ var QRCode;
 			var nWidth = _htOption.width / nCount;
 			var nHeight = _htOption.height / nCount;
 			var nRoundedWidth = Math.round(nWidth);
-			var nRoundedHeight = Math.round(nHeight);
+			var nRoundedHeight = Math.round(nHeight);			
+			/**
+			   If the data block corresponds exactly to the pixel, there is no need to turn on anti aliasing
+   			*/
+			var antialiasing=nWidth==nRoundedWidth?false:true;	
 
 			_elImage.style.display = "none";
 			this.clear();
@@ -396,21 +400,23 @@ var QRCode;
 					_oContext.lineWidth = 1;
 					_oContext.fillStyle = bIsDark ? _htOption.colorDark : _htOption.colorLight;					
 					_oContext.fillRect(nLeft, nTop, nWidth, nHeight);
-					
-					// 안티 앨리어싱 방지 처리
-					_oContext.strokeRect(
-						Math.floor(nLeft) + 0.5,
-						Math.floor(nTop) + 0.5,
-						nRoundedWidth,
-						nRoundedHeight
-					);
-					
-					_oContext.strokeRect(
-						Math.ceil(nLeft) - 0.5,
-						Math.ceil(nTop) - 0.5,
-						nRoundedWidth,
-						nRoundedHeight
-					);
+
+					if (antialiasing){
+						// 안티 앨리어싱 방지 처리
+						_oContext.strokeRect(
+							Math.floor(nLeft) + 0.5,
+							Math.floor(nTop) + 0.5,
+							nRoundedWidth,
+							nRoundedHeight
+						);
+
+						_oContext.strokeRect(
+							Math.ceil(nLeft) - 0.5,
+							Math.ceil(nTop) - 0.5,
+							nRoundedWidth,
+							nRoundedHeight
+						);
+					}
 				}
 			}
 			
