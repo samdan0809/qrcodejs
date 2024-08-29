@@ -22,7 +22,8 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 	colorDark : "#000000",
 	colorLight : "#ffffff",
 	correctLevel : QRCode.CorrectLevel.H,
-	borderWidth:2
+	borderWidth:2,
+	autoAlignment:false,
 });
 </script>
 ```

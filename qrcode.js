@@ -401,6 +401,17 @@ var QRCode;
 
 			var offset={x:_htOption.borderWidth,y:_htOption.borderWidth};
 			
+			/**
+			 * automatic alignment
+			 */ 
+			if (_htOption.autoAlignment){
+				antialiasing=false;
+				nWidth= Math.floor(_htOption.width / nCount);
+				nHeight = Math.floor(_htOption.height / nCount);
+				offset.x=(_htOption.width- nCount*nWidth)/2+_htOption.borderWidth;
+				offset.y=(_htOption.height- nCount*nHeight)/2+_htOption.borderWidth;
+			}
+
 			_elImage.style.display = "none";
 			this.clear();
 
@@ -550,7 +561,8 @@ var QRCode;
 	 * @param {String} [vOption.colorDark="#000000"]
 	 * @param {String} [vOption.colorLight="#ffffff"]
 	 * @param {QRCode.CorrectLevel} [vOption.correctLevel=QRCode.CorrectLevel.H] [L|M|Q|H]
-	 * @param {Number} [vOption.borderWidth=2]
+	 * @param {Number} [vOption.borderWidth=0] border width of QRCode
+	 * @param {Boolean} [vOption.autoAlignment=false] auto alignment of pixel
 	 */
 	QRCode = function (el, vOption) {
 		this._htOption = {
@@ -560,7 +572,8 @@ var QRCode;
 			colorDark : "#000000",
 			colorLight : "#ffffff",
 			correctLevel : QRErrorCorrectLevel.M,
-			borderWidth : 2,
+			borderWidth : 0,
+			autoAlignment:false,
 		};
 
 		if (typeof vOption === 'string') {
